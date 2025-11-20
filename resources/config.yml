@@ -1,0 +1,29 @@
+# Copyright -- ©2025 (AnasBex Development)
+# Default radius normal chat
+radius: 20
+
+# Radius whisper (/w)
+whisper-radius: 6
+
+# Radius shout (/s)
+shout-radius: 40
+
+# Hide player's own message
+hide-self: false
+
+# Per-world settings
+world-settings:
+  default:
+    enabled: true
+    radius: 20
+
+# Message format
+format:
+  normal: "§e[Nearby] §f{player}: §7{msg}"
+  whisper: "§b[Whisper] §f{player}: §7{msg}"
+  shout: "§c[Shout] §f{player}: §7{msg}"
+
+# Jika player jauh → ada indikator
+distance-tag:
+  near: ""
+  far: " §8(too far)"

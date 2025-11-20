@@ -1,0 +1,11 @@
+name: ChatProximity
+main: ChatProximity\Main
+api: 5.0.0
+version: 1.0.0-Beta
+author: AnasBex
+description: Hybrid proximity chat system for PMMP
+
+permissions:
+  chatprox.bypass:
+    description: Allow player to chat globally ignoring proximity
+    default: op

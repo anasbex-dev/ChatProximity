@@ -1,29 +1,55 @@
 # Copyright -- ©2025 (AnasBex Development)
-# Default radius normal chat
+# ChatProximity Configuration v2
+config-version: 2
+
+# Basic Settings
 radius: 20
-
-# Radius whisper (/w)
-whisper-radius: 6
-
-# Radius shout (/s)
+whisper-radius: 6  
 shout-radius: 40
-
-# Hide player's own message
 hide-self: false
 
-# Per-world settings
-world-settings:
-  default:
-    enabled: true
-    radius: 20
+# Command Settings
+enable-toggle-command: true
+toggle-permission: "chatproximity.toggle"
+bypass-permission: "chatproximity.bypass"
 
-# Message format
+# Advanced Features
+enable-cross-world: false
+show-distance: true
+enable-chat-ranges: true
+
+# Anti-Spam System
+anti-spam:
+  enabled: true
+  cooldown: 1
+
+# Custom Chat Ranges
+chat-ranges:
+  "@l": 
+    radius: 100
+    format: "§d[LOCAL] §f{player}: {msg}"
+  "@t":
+    radius: 200  
+    format: "§b[TRADE] §f{player}: {msg}"
+  "@ooc":
+    radius: 50
+    format: "§8[OOC] §7{player}: {msg}"
+
+# Message Formats
 format:
-  normal: "§e[Nearby] §f{player}: §7{msg}"
-  whisper: "§b[Whisper] §f{player}: §7{msg}"
-  shout: "§c[Shout] §f{player}: §7{msg}"
+  normal: "§f{player}: {msg}"
+  whisper: "§7{player} whispers: {msg}" 
+  shout: "§6{player} shouts: {msg}"
 
-# Jika player jauh → ada indikator
+# World Specific Settings
+world-settings:
+  world_nether:
+    enabled: true
+    radius: 30
+  world_the_end:
+    enabled: false
+
+# Distance Tags  
 distance-tag:
-  near: ""
-  far: " §8(too far)"
+  enabled: true
+  format: "§8[{distance}m]"

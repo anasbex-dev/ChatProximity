@@ -1,11 +1,33 @@
 name: ChatProximity
 main: ChatProximity\Main
 api: 5.0.0
-version: 1.1.0-Beta
+version: 2.0.0
 author: AnasBex
-description: Hybrid proximity chat system for PMMP
+description: Advanced proximity chat system for PMMP
 
 permissions:
-  chatprox.bypass:
+  chatproximity.toggle:
+    description: Allow player to toggle proximity chat
+    default: true
+    
+  chatproximity.bypass:
     description: Allow player to chat globally ignoring proximity
     default: op
+    
+  chatproximity.admin:
+    description: Full admin access to ChatProximity features
+    default: op
+    
+  chatproximity.*:
+    description: Wildcard permission for all ChatProximity features
+    default: op
+    children:
+      chatproximity.toggle: true
+      chatproximity.bypass: true
+      chatproximity.admin: true
+
+commands:
+  togglechat:
+    description: Enable/disable proximity chat
+    usage: "/togglechat"
+    permission: chatproximity.toggle

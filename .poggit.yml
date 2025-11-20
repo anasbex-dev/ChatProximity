@@ -1,10 +1,75 @@
 --- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/anasbex-dev/ChatProximity
+name: ChatProximity
+version: 2.0.0
+author: AnasBex
 build-by-default: true
 branches:
-- main
+  - main
+
+# Build settings
+output: "ChatProximity_{version}.phar"
+lint:
+  phpstan: true
+  syntax: true
+  level: default
+
+# Project settings
 projects:
   ChatProximity:
     path: ""
-    lint: false
     icon: "cp_logo.png"
-...
+    
+    # Dependencies
+    libs:
+      - src: pocketmine/pocketmine-mp
+        version: ^5.0.0
+    
+    # Include necessary files
+    include:
+      - "README.md"
+      - "LICENSE"
+      - "plugin.yml"
+      - "resources/"
+      - "src/"
+
+# Code quality
+settings:
+  minify: true
+  entry: "src/ChatProximity/Main.php"
+  namespace: "ChatProximity"
+
+# PHPStan configuration
+phpstan:
+  level: 6
+  check-unknown-types: true
+
+# After-build
+after:
+  - name: "Validate Build"
+    script: |
+      echo "Build completed: ChatProximity_{version}.phar"
+      echo "Included files:"
+      find . -name "*.php" -o -name "*.yml" -o -name "*.md" | head -10
+
+# Environment
+env:
+  PLUGIN_NAME: "ChatProximity"
+  API: "5.0.0"
+
+# Plugin metadata
+plugin:
+  name: "ChatProximity"
+  main: "ChatProximity\\Main"
+  api: "5.0.0"
+  version: "2.0.0"
+  description: "Advanced proximity chat system for PMMP"
+  authors: ["AnasBex"]
+  website: "https://github.com/anasbex-dev/ChatProximity"
+  
+  categories:
+    - "chat"
+    - "mechanics"
+  
+  links:
+    source: "https://github.com/anasbex-dev/ChatProximity"
+    issues: "https://github.com/anasbex-dev/ChatProximity/issues"

@@ -3,9 +3,9 @@
 config-version: 2
 
 # Basic Settings
-radius: 20
-whisper-radius: 6  
-shout-radius: 40
+radius: 10
+whisper-radius: 3  
+shout-radius: 20
 hide-self: false
 
 # Command Settings

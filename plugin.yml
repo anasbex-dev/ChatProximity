@@ -17,14 +17,6 @@ permissions:
   chatproximity.admin:
     description: Full admin access to ChatProximity features
     default: op
-    
-  chatproximity.*:
-    description: Wildcard permission for all ChatProximity features
-    default: op
-    children:
-      chatproximity.toggle: true
-      chatproximity.bypass: true
-      chatproximity.admin: true
 
 commands:
   togglechat:

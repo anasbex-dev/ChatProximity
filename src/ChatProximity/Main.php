@@ -147,7 +147,7 @@ class Main extends PluginBase implements Listener {
         return false;
     }
 
-    /** Handle chat dengan configurable permission */
+    /** Handle chat dengan configurable permission - FIXED untuk PMMP 5.x */
     public function onPlayerChat(PlayerChatEvent $e): void {
         try {
             $p = $e->getPlayer();
@@ -199,7 +199,10 @@ class Main extends PluginBase implements Listener {
             // World settings
             $worldName = $world->getFolderName();
             $worldSetting = $this->worldSettings[$worldName] ?? ["enabled" => true, "radius" => $this->radius];
-            if(!isset($worldSetting["enabled"]) || !$worldSetting["enabled"]) return;
+            if(!isset($worldSetting["enabled"]) || !$worldSetting["enabled"]) {
+                $e->cancel();
+                return;
+            }
             $radiusDefault = $worldSetting["radius"] ?? $this->radius;
 
             // Deteksi tipe chat dan custom ranges
@@ -225,8 +228,11 @@ class Main extends PluginBase implements Listener {
             // Format message dengan placeholder lengkap
             $formattedMessage = $this->formatMessage($p, $format, $msg, $recipients, $chatType);
 
-            $e->setFormat($formattedMessage);
-            $e->setRecipients($recipients);
+            // ✅ FIX: Untuk PMMP 5.x - Kirim pesan manual ke recipients dan cancel event
+            $this->sendMessageToRecipients($formattedMessage, $recipients, $p);
+            
+            // Cancel event asli agar tidak broadcast ke semua player
+            $e->cancel();
 
             // Log chat activity untuk debugging
             $this->getLogger()->debug("Chat handled - Player: {$p->getName()}, Type: {$chatType}, Radius: {$radius}, Recipients: " . count($recipients));
@@ -235,6 +241,20 @@ class Main extends PluginBase implements Listener {
             $this->getLogger()->error("Error in chat handling: " . $e->getMessage());
             $this->getLogger()->debug($e->getTraceAsString());
         }
+    }
+
+    /**
+     * ✅ NEW: Kirim pesan ke recipients secara manual (PMMP 5.x compatible)
+     */
+    private function sendMessageToRecipients(string $formattedMessage, array $recipients, Player $sender): void {
+        foreach($recipients as $recipient) {
+            if($recipient instanceof Player && $recipient->isOnline() && !$recipient->isClosed()) {
+                $recipient->sendMessage($formattedMessage);
+            }
+        }
+        
+        // Juga log ke console untuk debugging
+        $this->getLogger()->info(strip_tags($formattedMessage));
     }
 
     /**

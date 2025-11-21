@@ -4,7 +4,7 @@ version: 2.0.0
 author: AnasBex
 build-by-default: true
 branches:
-  - main
+- main
 
 # Build settings
 output: "ChatProximity_{version}.phar"
@@ -64,7 +64,7 @@ plugin:
   version: "2.0.0"
   description: "Advanced proximity chat system for PMMP"
   authors: ["AnasBex"]
-  website: "https://github.com/anasbex-dev/ChatProximity"
+  website: "https://anasbex.vercel.app"
   
   categories:
     - "chat"
